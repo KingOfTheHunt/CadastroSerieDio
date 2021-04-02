@@ -12,6 +12,7 @@ namespace CadastroSerie.Entidades
         private string _titulo;
         private string _descricao;
         private DateTime _ano;
+        private bool _ativo;
         
 
         public Serie(int id, Genero genero, string titulo, string descricao, DateTime ano, float nota)
@@ -22,6 +23,7 @@ namespace CadastroSerie.Entidades
             _descricao = descricao;
             _ano = ano;
             Nota = nota;
+            _ativo = true;
         }
 
         private float Nota 
@@ -47,6 +49,12 @@ namespace CadastroSerie.Entidades
         public string GetTitulo
         {
             get { return _titulo; }
+        }
+
+        public bool Ativo
+        {
+            get { return _ativo; }
+            set { _ativo = value; }
         }
 
 
