@@ -61,6 +61,7 @@ namespace CadastroSerie.Entidades
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Id: {Id}");
             sb.AppendLine($"Gênero: {_genero}");
             sb.AppendLine($"Título: {_titulo}");
             sb.AppendLine($"Descrição: {_descricao}");
