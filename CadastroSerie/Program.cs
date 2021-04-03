@@ -1,5 +1,4 @@
-﻿using CadastroSerie.Entidades;
-using System;
+﻿using CadastroSerie.Visao;
 
 namespace CadastroSerie
 {
@@ -7,7 +6,7 @@ namespace CadastroSerie
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello world!");
+            SerieVisao.Menu();   
         }
     }
 }
