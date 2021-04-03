@@ -14,48 +14,54 @@ namespace CadastroSerie.Visao
         {
             char op;
 
-            Console.Clear();
-
             Console.WriteLine("Bem vindo a sua lista de séries.");
 
-            do
+            try
             {
-                Console.WriteLine();
-                Console.WriteLine("\t\tMenu");
-                Console.WriteLine("1 - Listar séries.");
-                Console.WriteLine("2 - Inserir série.");
-                Console.WriteLine("3 - Atualizar série.");
-                Console.WriteLine("4 - Excluir série");
-                Console.WriteLine("5 - Visualizar série.");
-                Console.WriteLine("X - Sair.");
-                Console.Write("Opção: ");
-                op = Console.ReadLine().ToUpper()[0];
-
-                switch (op)
+                do
                 {
-                    case '1':
-                        ListarSeries();
-                        break;
-                    case '2':
-                        InserirSerie();
-                        break;
-                    case '3':
-                        AtualizarSerie();
-                        break;
-                    case '4':
-                        // ExcluirSerie();
-                        break;
-                    case '5':
-                        // VisualizarSerie();
-                        break;
-                    case 'X':
-                        Console.WriteLine("Fim da execução do programa...");
-                        break;
-                    default:
-                        Console.WriteLine("Opção inválida!");
-                        break;
-                }
-            } while (op != 'X');
+                    Console.WriteLine();
+                    Console.WriteLine("\t\tMenu");
+                    Console.WriteLine("1 - Listar séries.");
+                    Console.WriteLine("2 - Inserir série.");
+                    Console.WriteLine("3 - Atualizar série.");
+                    Console.WriteLine("4 - Excluir série.");
+                    Console.WriteLine("5 - Visualizar série.");
+                    Console.WriteLine("X - Sair.");
+                    Console.Write("Opção: ");
+                    op = Console.ReadLine().ToUpper()[0];
+
+                    switch (op)
+                    {
+                        case '1':
+                            ListarSeries();
+                            break;
+                        case '2':
+                            InserirSerie();
+                            break;
+                        case '3':
+                            AtualizarSerie();
+                            break;
+                        case '4':
+                            ExcluirSerie();
+                            break;
+                        case '5':
+                            VisualizarSerie();
+                            break;
+                        case 'X':
+                            Console.WriteLine("Fim da execução do programa...");
+                            break;
+                        default:
+                            Console.WriteLine("Opção inválida!");
+                            break;
+                    }
+                } while (op != 'X');
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
         }
 
         private static void ListarSeries()
@@ -69,9 +75,9 @@ namespace CadastroSerie.Visao
                 foreach (var serie in _series.Lista())
                 {
                     Console.WriteLine(serie);
-                    Console.WriteLine("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
                 }
 
+                Console.WriteLine("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
                 Console.WriteLine();
             }
             catch (Exception e)
@@ -174,6 +180,68 @@ namespace CadastroSerie.Visao
                 _series.Atualiza(id - 1, serie);
 
                 Console.WriteLine("Atualizado com sucesso!!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static void ExcluirSerie()
+        {
+            char op;
+
+            try
+            {
+                Console.WriteLine();
+                Console.WriteLine("Excluir série");
+
+                Console.WriteLine();
+
+                foreach (Serie serie in _series.Lista())
+                {
+                    Console.WriteLine(serie);
+                }
+
+                Console.Write("Digite o id da série que deseja excluir: ");
+                int id = int.Parse(Console.ReadLine());
+
+                do
+                {
+                    Console.Write("Deseja realmente excluir (s/n)? ");
+                    op = Console.ReadLine().ToLower()[0];
+                } while (op != 's' && op != 'n');
+
+                if (op == 's')
+                {
+                    _series.Exclui(id); 
+                    Console.WriteLine("Excluído com sucesso!!");
+                }
+                else
+                {
+                    Console.WriteLine("Operação cancelada!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static void VisualizarSerie()
+        {
+            try
+            {
+                Console.WriteLine();
+
+                Console.WriteLine("Visualizar série");
+
+                Console.Write("Digite o id da série que você deseja visualizar: ");
+                int id = int.Parse(Console.ReadLine());
+
+                Console.WriteLine();
+
+                Console.WriteLine(_series.RetornaPorId(id));
             }
             catch (Exception e)
             {

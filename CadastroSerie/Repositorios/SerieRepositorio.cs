@@ -53,7 +53,12 @@ namespace CadastroSerie.Repositorios
 
         public Serie RetornaPorId(int id)
         {
-            return _series.Where(s => s.GetId == id).FirstOrDefault();
+            if (Existe(id) == false)
+            {
+                throw new Exception("Não existe nenhuma série com este id.");
+            }
+
+            return _series.Where(s => s.GetId == id && s.Ativo == true).FirstOrDefault();
         }
 
         public bool Existe(int id)
