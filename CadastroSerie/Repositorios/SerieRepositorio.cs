@@ -13,24 +13,17 @@ namespace CadastroSerie.Repositorios
 
         public void Atualiza(int id, Serie entidade)
         {
-            var serie = _series.Where(s => s.GetId == id).FirstOrDefault();
-
-            if (serie != null)
-            {
-                serie = entidade;
-                _series[id] = entidade;
-            }
+            _series[id] = entidade;
         }
 
         public void Exclui(int id)
         {
-            bool existe = _series.Where(s => s.GetId == id).Any();
-
-            if (!existe)
+            if (Existe(id) == false)
             {
-                throw new Exception("Não existe nenhuma série com este id.");
+                throw new Exception("Não foi possível realizar a exclusão, pois " +
+                    "não há uma série com este id.");
             }
-
+          
             _series.Where(s => s.GetId == id).FirstOrDefault().Ativo = false;
         }
 
@@ -45,17 +38,32 @@ namespace CadastroSerie.Repositorios
 
         public List<Serie> Lista()
         {
+            if (_series.Count == 0)
+            {
+                throw new Exception("Não há nenhuma série na sua lista.");
+            }
+
             return _series.Where(s => s.Ativo == true).ToList();
         }
 
         public int ProximoId()
         {
-            return _series.Count;
+            return _series.Count + 1;
         }
 
         public Serie RetornaPorId(int id)
         {
             return _series.Where(s => s.GetId == id).FirstOrDefault();
+        }
+
+        public bool Existe(int id)
+        {
+            if (_series.Any(s => s.GetId == id) == false)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
